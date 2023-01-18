@@ -1,8 +1,10 @@
 import React from 'react';
 import { BsJournalText } from "react-icons/bs";
 import {useNavigate} from 'react-router-dom';
+import { useSelector } from 'react-redux';
 const NavBar = () => {
     const navigate=useNavigate();
+    const {quantity} = useSelector(state=>state.cart);
   return (
         <div className='row mt-4'>
             <div className='col-sm-4 col-12 mt-3 mt-sm-auto'>
@@ -24,7 +26,7 @@ const NavBar = () => {
             <div className='col-sm-4 col-12 mt-4 mt-sm-0'>
                 <div className='d-flex align-items-center justify-content-center'>
                     <div className='position-relative'>
-                        <p className='cartBuy'>1</p>
+                        <p className='cartBuy'>{quantity}</p>
                         <svg onClick={()=>navigate('/Cart')} role="button" xmlns="http://www.w3.org/2000/svg" width="30" height="25" fill="currentColor" className="text-muted bi bi-cart2" viewBox="0 0 16 16">
                             <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
                         </svg>

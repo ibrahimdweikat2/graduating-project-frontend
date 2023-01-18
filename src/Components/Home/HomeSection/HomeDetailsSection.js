@@ -14,7 +14,7 @@ const HomeDetailsSection = () => {
           </div>
           <div className='ms-5 mt-5 text-blue'>
             <h1 className='fs-6'>Pay With Easy</h1>
-            <p>loran</p>
+            <p>Buy The Books With Several Way</p>
           </div>
         </div>
         <div className='d-flex flex-wrap mt-3 col-12 col-sm-4 position-relative'>
@@ -26,7 +26,7 @@ const HomeDetailsSection = () => {
           </div>
           <div className='ms-5 mt-5 text-blue' >
             <h1 className='fs-6'>Best Deal</h1>
-            <p>loran</p>
+            <p>Get The Best Deals</p>
           </div>
         </div>
         <div className='d-flex flex-wrap mt-3 col-12 col-sm-4 position-relative'>
@@ -38,7 +38,7 @@ const HomeDetailsSection = () => {
           </div>
           <div className='ms-5 mt-5 text-blue'>
             <h1 className='fs-6'>Secured Payment</h1>
-            <p>loran</p>
+            <p>Payment With High Secured With Strip</p>
           </div>
         </div>
       </div>

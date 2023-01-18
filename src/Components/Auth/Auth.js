@@ -1,4 +1,8 @@
-import React,{useState} from 'react'
+import React,{useState} from 'react';
+import {useDispatch} from 'react-redux';
+import {Register,Login} from '../../action/index'
+import { ToastContainer, toast } from 'react-toastify';
+import {useNavigate} from 'react-router-dom'
 const initFormData={
   firstName:'',
   lastName:'',
@@ -7,10 +11,27 @@ const initFormData={
   confirmPassword:'',
 }
 const Auth = () => {
+  const navigate=useNavigate();
+  const dispatch=useDispatch();
   const [isSign,setIsSign]=useState(true);
   const [formData,setFormData]=useState(initFormData);
   const ChangeHandler=event=>{
     setFormData({...formData,[event.target.name]:event.target.value});
+  }
+  const submitHandler=e=>{
+    e.preventDefault();
+    if(isSign){
+      if(formData.password===formData.confirmPassword){
+        dispatch(Register(formData));
+        toast.success("Registration Successful");
+        setIsSign(!isSign);
+      }else{
+        toast.error('Password does not match');
+      }
+    }else{
+      dispatch(Login(formData));
+      navigate('/Home');
+    }
   }
   return (
     <div className='position-relative bg-auth'>
@@ -18,7 +39,7 @@ const Auth = () => {
       <div>
         <h1 className='mb-4 pb-3 text-center'>{isSign ? "Sign Up" : "Sing In"}</h1>
       </div>
-      <form>
+      <form onSubmit={submitHandler}>
         {isSign && (
           <div className="row">
           <div className="col-12 col-md-6 mb-2">
@@ -52,6 +73,7 @@ const Auth = () => {
         </div>
       </form>
     </div>
+        <ToastContainer />
     </div>
   )
 }

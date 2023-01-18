@@ -1,13 +1,25 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import img1 from '../../images/100915.jpg';
 import StarRatings from 'react-star-ratings';
+import {useNavigate} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {fetchBooks} from '../../action/index';
 export default function Book() {
+  const navigate=useNavigate();
+  const dispatch=useDispatch();
+  const {books}=useSelector(state=>state.book);
+  useEffect(()=>{
+    dispatch(fetchBooks());
+  },[dispatch])
   return (
    <>
-   <div className='container d-flex'>
-
-  <div class="sidebar">
-    <h4>Shop by Category</h4>
+   <div className='container'>
+    <div className='mt-5 text-gray'>
+      Home/<span className='text-blue'>Books</span>
+    </div>
+    <div className='d-flex mt-3'>
+    <div class="sidebar mt-4">
+    <h4 className='mb-3'>Shop by Category</h4>
     <a class="active" href="#">All Genre</a>
     <a href="#">Arts&Photography</a>
     <a href="#">History</a>
@@ -32,173 +44,30 @@ export default function Book() {
 </div>
 
 
-<div className='books'>
+<div className='books mt-5'>
 
-<div className="book-card">
-            <img src={img1} alt="" />
-            <div className="mt-2">
-              <h4>The crown</h4>
-              <p>Kiera cass</p>
-              <h5>29.2$</h5>
+    {books.map(book=>(
+      <div key={book?._id} className="book-card" onClick={()=>navigate(`/BookDetails/${book?._id}`)}>
+      <img src={img1} alt="" style={{width:'calc(100%)',height:'calc(100% / 1.5)'}}/>
+      <div className="mt-2">
+        <h4>{book?.title}</h4>
+        <p>{book?.description}</p>
+        <h5>{`${book?.price}$`}</h5>
 
-              <div className="rate d-flex">
-              <StarRatings rating={4} name='rating' numberOfStars={5} starRatedColor='orange' starDimension='20' starSpacing='3'/>
+        <div className="rate d-flex">
+        <StarRatings rating={book?.rating} name='rating' numberOfStars={5} starRatedColor='orange' starDimension='20' starSpacing='3'/>
 
-                <div className="review  mt-1 ms-2">
-                  <p>368 reviews</p>
-                </div>
-              </div>
-            </div>
+          <div className="review  mt-1 ms-2">
+            <p>{`${book?.review_count} reviews`}</p>
           </div>
+        </div>
+      </div>
+    </div>
+    ))}
 
-          <div className="book-card">
-            <img src={img1} alt="" />
-            <div className="mt-2">
-              <h4>The crown</h4>
-              <p>Kiera cass</p>
-              <h5>29.2$</h5>
-
-              <div className="rate d-flex">
-              <StarRatings rating={4} name='rating' numberOfStars={5} starRatedColor='orange' starDimension='20' starSpacing='3'/>
-
-
-                <div className="review  mt-1 ms-2">
-                  <p>368 reviews</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="book-card">
-            <img src={img1} alt="" />
-            <div className="mt-2">
-              <h4>The crown</h4>
-              <p>Kiera cass</p>
-              <h5>29.2$</h5>
-
-              <div className="rate d-flex">
-              <StarRatings rating={4} name='rating' numberOfStars={5} starRatedColor='orange' starDimension='20' starSpacing='3'/>
-
-
-                <div className="review  mt-1 ms-2">
-                  <p>368 reviews</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="book-card">
-            <img src={img1} alt="" />
-            <div className="mt-2">
-              <h4>The crown</h4>
-              <p>Kiera cass</p>
-              <h5>29.2$</h5>
-
-              <div className="rate d-flex">
-              <StarRatings rating={4} name='rating' numberOfStars={5} starRatedColor='orange' starDimension='20' starSpacing='3'/>
-
-
-                <div className="review  mt-1 ms-2">
-                  <p>368 reviews</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="book-card">
-            <img src={img1} alt="" />
-            <div className="mt-2">
-              <h4>The crown</h4>
-              <p>Kiera cass</p>
-              <h5>29.2$</h5>
-
-              <div className="rate d-flex">
-              <StarRatings rating={4} name='rating' numberOfStars={5} starRatedColor='orange' starDimension='20' starSpacing='3'/>
-
-
-                <div className="review  mt-1 ms-2">
-                  <p>368 reviews</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="book-card">
-            <img src={img1} alt="" />
-            <div className="mt-2">
-              <h4>The crown</h4>
-              <p>Kiera cass</p>
-              <h5>29.2$</h5>
-
-              <div className="rate d-flex">
-              <StarRatings rating={4} name='rating' numberOfStars={5} starRatedColor='orange' starDimension='20' starSpacing='3'/>
-
-
-                <div className="review  mt-1 ms-2">
-                  <p>368 reviews</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="book-card">
-            <img src={img1} alt="" />
-            <div className="mt-2">
-              <h4>The crown</h4>
-              <p>Kiera cass</p>
-              <h5>29.2$</h5>
-
-              <div className="rate d-flex">
-              <StarRatings rating={4} name='rating' numberOfStars={5} starRatedColor='orange' starDimension='20' starSpacing='3'/>
-
-
-                <div className="review  mt-1 ms-2">
-                  <p>368 reviews</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="book-card">
-            <img src={img1} alt="" />
-            <div className="mt-2">
-              <h4>The crown</h4>
-              <p>Kiera cass</p>
-              <h5>29.2$</h5>
-
-              <div className="rate d-flex">
-              <StarRatings rating={4} name='rating' numberOfStars={5} starRatedColor='orange' starDimension='20' starSpacing='3'/>
-
-
-                <div className="review  mt-1 ms-2">
-                  <p>368 reviews</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="book-card">
-            <img src={img1} alt="" />
-            <div className="mt-2">
-              <h4>The crown</h4>
-              <p>Kiera cass</p>
-              <h5>29.2$</h5>
-
-              <div className="rate d-flex">
-              <StarRatings rating={4} name='rating' numberOfStars={5} starRatedColor='orange' starDimension='20' starSpacing='3'/>
-
-
-                <div className="review  mt-1 ms-2">
-                  <p>368 reviews</p>
-                </div>
-              </div>
-            </div>
-          </div>
    </div>
 
-
-
-   
+    </div>
 
    </div>
    </>

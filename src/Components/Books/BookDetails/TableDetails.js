@@ -9,7 +9,7 @@ const TableDetails = ({book}) => {
                         </tr>
                         <tr>
                             <td className='text-start py-3 ps-3 table-details' style={{width:'calc(855px/4)',backgroundColor:'#EDEDED'}}>Author</td>
-                            <td className='text-start py-3 ps-3 table-details' style={{width:'calc((855px/3)*3)'}}>{book.authors}</td>
+                            <td className='text-start py-3 ps-3 table-details' style={{width:'calc((855px/3)*3)'}}>{book.author}</td>
                         </tr>
                         <tr>
                             <td className='text-start py-3 ps-3 table-details' style={{width:'calc(855px/4)',backgroundColor:'#EDEDED'}}>Book Formate</td>

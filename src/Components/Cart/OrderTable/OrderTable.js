@@ -1,7 +1,17 @@
-import React,{useState} from 'react'
-
-const OrderTable = ({CartItem,changeQuantity}) => {
-    const [quantity,setQuantity]=useState(1);
+import React,{useEffect} from 'react'
+import {useLocation} from'react-router-dom';
+import {useSelector,useDispatch} from 'react-redux';
+import {getCartItems} from '../../../action/index'
+const OrderTable = () => {
+    const location=useLocation();
+    const dispatch=useDispatch();
+    const {books}=useSelector(state=>state.cart);
+    useEffect(()=>{
+        const user=JSON.parse(localStorage.getItem('user'));
+        if(user){
+            dispatch(getCartItems(user?._id))
+        }
+    },[dispatch,location])
   return (
 <div className='mt-5 container shopping-table'>
             <table className='w-100'>
@@ -16,15 +26,15 @@ const OrderTable = ({CartItem,changeQuantity}) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {CartItem.map((cart,index)=>(
-                        <tr key={index} className='border-bottom'>
+                    {books.map((cart,index)=>(
+                        <tr key={cart?._id} className='border-bottom'>
                             <td className='pe-lg-5 py-lg-3'>{
                                 (
                                     <div className='d-flex'>
-                                        <img src={cart.image_url} alt={cart.authors} className='me-2' width='70' height='100'/>
+                                        <img src={cart?.bookId?.image} alt={cart?.bookId?.author} className='me-2' width='70' height='100'/>
                                         <div className='mt-lg-4 ms-lg-4'>
-                                            <h1 className='fs-6'>{cart.title}</h1>
-                                            <p>{`Author:${cart.authors}`}</p>
+                                            <h1 className='fs-6'>{cart?.bookId?.title}</h1>
+                                            <p>{`Author:${cart?.bookId?.author}`}</p>
                                         </div>
                                     </div>
                                 )
@@ -34,11 +44,11 @@ const OrderTable = ({CartItem,changeQuantity}) => {
                                 {
                                     (
                                         <div className='d-flex ms-lg-5'>
-                                            <div role='button' onClick={()=>setQuantity(changeQuantity(--cart.quantity,cart?.id))} className='me-2 position-relative text-muted border border-muted rounded-circle' style={{width:'35px',height:'35px'}}>
+                                            <div role='button'  className='me-2 position-relative text-muted border border-muted rounded-circle' style={{width:'35px',height:'35px'}}>
                                                 <p className='position-absolute start-50 top-50 translate-middle'>-</p>
                                             </div>
-                                                <input type='text' style={{width:'60px'}}  className='text-center rounded-5 input' placeholder='1' value={quantity} min={1}/> 
-                                            <div role='button' onClick={()=>setQuantity(changeQuantity(++cart.quantity,cart?.id))} className='ms-2 position-relative text-muted border border-muted rounded-circle' style={{width:'35px',height:'35px'}}>
+                                                <input type='text' style={{width:'60px'}}  className='text-center rounded-5 input' placeholder='1' value={cart?.quantity} min={1}/> 
+                                            <div role='button' className='ms-2 position-relative text-muted border border-muted rounded-circle' style={{width:'35px',height:'35px'}}>
                                                 <p className='position-absolute start-50 top-50 translate-middle'>+</p>
                                             </div>
                                         </div>
@@ -46,10 +56,10 @@ const OrderTable = ({CartItem,changeQuantity}) => {
                                 }
                             </td>
                             <td className='fw-semibold px-lg-5 text-center py-lg-3'>
-                                {`USD $${cart.price}`}
+                                {`USD $${cart?.bookId?.price}`}
                             </td>
                             <td className='fw-semibold px-lg-5 text-center py-lg-3'>
-                                {`USD $${cart.total}`}
+                                {`USD $${cart?.quantity * cart?.bookId?.price}`}
                             </td>
                             <td className='px-lg-5 text-center py-lg-3'>
                                 <svg role='button' xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="text-muted bi bi-x" viewBox="0 0 16 16">

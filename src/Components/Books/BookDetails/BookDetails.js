@@ -1,18 +1,20 @@
-import React from 'react';
+import React,{useEffect,useState} from 'react';
 import StarRatings from 'react-star-ratings';
+import {useParams} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {getBookById,addToCart} from '../../../action/index';
 const LazyTableDetails = React.lazy(() => import('./TableDetails'));
 const LazyRelatedBook = React.lazy(() => import('./RelatedBook'));
-const LazyAddToCart = React.lazy(() => import('./AddToCart'));
-const book={
-    id:"639774c4badfb8b3aa286b6e",
-    title:"The Hitchhiker's Guide to the Galaxy",
-    authors:"Douglas Adams",
-    rating:4.21,
-    num_pages:193,
-    image_url:"https://images.gr-assets.com/books/1388282444l/386162.jpg",
-    description:"Seconds before the Earth is demolished to make way for a galactic freeway, Arthur Dent is plucked off the planet by his friend Ford Prefect, a researcher for the revised edition of The Hitchhiker's Guide to the Galaxy who, for the last fifteen years, has been posing as an out-of-work actor.Together this dynamic pair begin a journey through space aided by quotes from The Hitchhiker's Guide (\"A towel is about the most massively useful thing an interstellar hitchhiker can have\") and a galaxy-full of fellow travelers: Zaphod Beeblebrox—the two-headed, three-armed ex-hippie and totally out-to-lunch president of the galaxy; Trillian, Zaphod's girlfriend (formally Tricia McMillan), whom Arthur tried to pick up at a cocktail party once upon a time zone; Marvin, a paranoid, brilliant, and chronically depressed robot; Veet Voojagig, a former graduate student who is obsessed with the disappearance of all the ballpoint pens he bought over the years.",
-    format:"Paperback",
-}
+// const book={
+//     id:"639774c4badfb8b3aa286b6e",
+//     title:"The Hitchhiker's Guide to the Galaxy",
+//     authors:"Douglas Adams",
+//     rating:4.21,
+//     num_pages:193,
+//     image_url:"https://images.gr-assets.com/books/1388282444l/386162.jpg",
+//     description:"Seconds before the Earth is demolished to make way for a galactic freeway, Arthur Dent is plucked off the planet by his friend Ford Prefect, a researcher for the revised edition of The Hitchhiker's Guide to the Galaxy who, for the last fifteen years, has been posing as an out-of-work actor.Together this dynamic pair begin a journey through space aided by quotes from The Hitchhiker's Guide (\"A towel is about the most massively useful thing an interstellar hitchhiker can have\") and a galaxy-full of fellow travelers: Zaphod Beeblebrox—the two-headed, three-armed ex-hippie and totally out-to-lunch president of the galaxy; Trillian, Zaphod's girlfriend (formally Tricia McMillan), whom Arthur tried to pick up at a cocktail party once upon a time zone; Marvin, a paranoid, brilliant, and chronically depressed robot; Veet Voojagig, a former graduate student who is obsessed with the disappearance of all the ballpoint pens he bought over the years.",
+//     format:"Paperback",
+// }
 const books=[
     {
         id:"639774c4badfb8b3aa286b6e",
@@ -66,8 +68,13 @@ const books=[
     },
 ];
 const BookDetails = () => {
-    // const location =useLocation();
-    
+    let [inputValue,setInputValue]=useState(1);
+    const {id}=useParams();
+    const dispatch=useDispatch();  
+    useEffect(()=>{
+        dispatch(getBookById(id));
+    },[dispatch,id]);
+    const {book}=useSelector((state)=>state.book);
   return (
     <div className='container'>
         <div>
@@ -79,22 +86,33 @@ const BookDetails = () => {
                     <div className='col-12 d-flex algin-items-center'>
                         <div className='row'>
                             <div className='col-6 col-sm-6 col-md-5'>
-                                <img src={book.image_url} alt={book.title}/>
+                                <img src={book?.image} alt={book?.title}/>
                             </div>
                             <div className='ms-5 ms-lg-5 col-6 col-sm-6'>
-                                <h1 className='text-dark fs-5 fw-1'>{book.title}</h1>
-                                <p className='text-muted'>{`Author:${book.authors}`}</p>
+                                <h1 className='text-dark fs-5 fw-1'>{book?.title}</h1>
+                                <p className='text-muted'>{`Author:${book?.author}`}</p>
                                 <div className='d-flex algin-items-center'>
-                                    <StarRatings rating={book.rating} name='rating' numberOfStars={5} starRatedColor='orange' starDimension='20' starSpacing='3'/>
-                                    <div className='mt-1 ms-3'>{`${book.rating} Rating`}</div>
+                                    <StarRatings rating={book?.rating} name='rating' numberOfStars={5} starRatedColor='orange' starDimension='20' starSpacing='3'/>
+                                    <div className='mt-1 ms-3'>{`${book?.rating} Rating`}</div>
                                 </div>
                                 <div className='w-25 my-3 text-blue position-relative p-3 rounded-2' style={{border:'2px solid #1C8CCE'}}>
-                                    <p className='position-absolute start-50 top-50 translate-middle'>$14.99</p>
+                                    <p className='position-absolute start-50 top-50 translate-middle'>{`$${book?.price}`}</p>
                                 </div>
-                                <p className='text-muted'>{book.description}</p>
-                                <React.Suspense>
-                                    <LazyAddToCart />
-                                </React.Suspense>
+                                <p className='text-muted'>{book?.description}</p>
+                                <div className='d-flex justify-content-end mt-5'>
+                                    <div className='d-flex me-3'>
+                                        <div role='button' onClick={()=>inputValue> 1 && setInputValue(inputValue - 1)} className='me-2 position-relative text-muted border border-muted rounded-circle' style={{width:'35px',height:'35px'}}>
+                                            <p className='position-absolute start-50 top-50 translate-middle'>-</p>
+                                        </div>
+                                            <input type='text' style={{width:'60px'}}  className='text-center rounded-5 input' value={inputValue}/> 
+                                        <div role='button' onClick={()=>setInputValue(inputValue + 1)} className='ms-2 position-relative text-muted border border-muted rounded-circle' style={{width:'35px',height:'35px'}}>
+                                            <p className='position-absolute start-50 top-50 translate-middle'>+</p>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <button onClick={()=>dispatch(addToCart(book,inputValue))} className='text-white bg-blue px-4 py-2 border-0 rounded-4 shadow-sm p-3 mb-5rounded'>Add To Cart</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
