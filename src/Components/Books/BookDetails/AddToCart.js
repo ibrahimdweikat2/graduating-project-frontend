@@ -4,7 +4,6 @@ import {addToCart} from '../../../action/index';
 const AddToCart = ({book}) => {
     const dispatch = useDispatch();
     let [inputValue,setInputValue]=useState(1);
-    console.log(book)
   return (
     <div className='d-flex justify-content-end mt-5'>
     <div className='d-flex me-3'>

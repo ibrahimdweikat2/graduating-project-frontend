@@ -1,7 +1,8 @@
 import React,{useEffect} from 'react'
 import {useLocation} from'react-router-dom';
 import {useSelector,useDispatch} from 'react-redux';
-import {getCartItems} from '../../../action/index'
+import {getCartItems,deleteItemGuset,updateItemQuantity,minItemQuantity} from '../../../action/index'
+import {addQuantity} from '../../../api/index';
 const OrderTable = () => {
     const location=useLocation();
     const dispatch=useDispatch();
@@ -11,7 +12,24 @@ const OrderTable = () => {
         if(user){
             dispatch(getCartItems(user?._id))
         }
-    },[dispatch,location])
+    },[dispatch,location]);
+    const deleteHandler=(book,quantity)=>{
+        
+            dispatch(deleteItemGuset(book,quantity))
+    }
+    const addQuantityHandler=(book,quantity)=>{
+        
+        dispatch(updateItemQuantity(book,quantity));
+        
+    }
+    const minQuantityHandler=(book,quantity)=>{
+        
+        dispatch(minItemQuantity(book,quantity));
+        
+    }
+    const changeHandler=e=>{
+        
+    }
   return (
 <div className='mt-5 container shopping-table'>
             <table className='w-100'>
@@ -27,7 +45,7 @@ const OrderTable = () => {
                 </thead>
                 <tbody>
                     {books.map((cart,index)=>(
-                        <tr key={cart?._id} className='border-bottom'>
+                        <tr key={index} className='border-bottom'>
                             <td className='pe-lg-5 py-lg-3'>{
                                 (
                                     <div className='d-flex'>
@@ -44,12 +62,12 @@ const OrderTable = () => {
                                 {
                                     (
                                         <div className='d-flex ms-lg-5'>
-                                            <div role='button'  className='me-2 position-relative text-muted border border-muted rounded-circle' style={{width:'35px',height:'35px'}}>
-                                                <p className='position-absolute start-50 top-50 translate-middle'>-</p>
+                                            <div onClick={()=>cart?.quantity > 1 && minQuantityHandler(cart?.bookId,cart?.quantity)} role='button'  className='me-2 position-relative text-muted border border-muted rounded-circle' style={{width:'35px',height:'35px'}}>
+                                                <p  className='position-absolute start-50 top-50 translate-middle'>-</p>
                                             </div>
-                                                <input type='text' style={{width:'60px'}}  className='text-center rounded-5 input' placeholder='1' value={cart?.quantity} min={1}/> 
-                                            <div role='button' className='ms-2 position-relative text-muted border border-muted rounded-circle' style={{width:'35px',height:'35px'}}>
-                                                <p className='position-absolute start-50 top-50 translate-middle'>+</p>
+                                                <input onChange={changeHandler} type='text' style={{width:'60px'}}  className='text-center rounded-5 input' placeholder='1' value={cart?.quantity} min={1}/> 
+                                            <div onClick={()=>addQuantityHandler(cart?.bookId,cart?.quantity)} role='button' className='ms-2 position-relative text-muted border border-muted rounded-circle' style={{width:'35px',height:'35px'}}>
+                                                <p  className='position-absolute start-50 top-50 translate-middle'>+</p>
                                             </div>
                                         </div>
                                     )
@@ -62,7 +80,7 @@ const OrderTable = () => {
                                 {`USD $${cart?.quantity * cart?.bookId?.price}`}
                             </td>
                             <td className='px-lg-5 text-center py-lg-3'>
-                                <svg role='button' xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="text-muted bi bi-x" viewBox="0 0 16 16">
+                                <svg onClick={()=>deleteHandler(cart?.bookId,cart?.quantity)} role='button' xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="text-muted bi bi-x" viewBox="0 0 16 16">
                                     <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
                                 </svg>
                             </td>

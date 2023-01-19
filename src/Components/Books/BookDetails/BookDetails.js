@@ -5,68 +5,6 @@ import {useDispatch, useSelector} from 'react-redux';
 import {getBookById,addToCart} from '../../../action/index';
 const LazyTableDetails = React.lazy(() => import('./TableDetails'));
 const LazyRelatedBook = React.lazy(() => import('./RelatedBook'));
-// const book={
-//     id:"639774c4badfb8b3aa286b6e",
-//     title:"The Hitchhiker's Guide to the Galaxy",
-//     authors:"Douglas Adams",
-//     rating:4.21,
-//     num_pages:193,
-//     image_url:"https://images.gr-assets.com/books/1388282444l/386162.jpg",
-//     description:"Seconds before the Earth is demolished to make way for a galactic freeway, Arthur Dent is plucked off the planet by his friend Ford Prefect, a researcher for the revised edition of The Hitchhiker's Guide to the Galaxy who, for the last fifteen years, has been posing as an out-of-work actor.Together this dynamic pair begin a journey through space aided by quotes from The Hitchhiker's Guide (\"A towel is about the most massively useful thing an interstellar hitchhiker can have\") and a galaxy-full of fellow travelers: Zaphod Beeblebrox—the two-headed, three-armed ex-hippie and totally out-to-lunch president of the galaxy; Trillian, Zaphod's girlfriend (formally Tricia McMillan), whom Arthur tried to pick up at a cocktail party once upon a time zone; Marvin, a paranoid, brilliant, and chronically depressed robot; Veet Voojagig, a former graduate student who is obsessed with the disappearance of all the ballpoint pens he bought over the years.",
-//     format:"Paperback",
-// }
-const books=[
-    {
-        id:"639774c4badfb8b3aa286b6e",
-        title:"The Hitchhiker's Guide to the Galaxy",
-        authors:"Douglas Adams",
-        rating:4.21,
-        num_pages:193,
-        image_url:"https://images.gr-assets.com/books/1388282444l/386162.jpg",
-        description:"Seconds before the Earth is demolished to make way for a galactic freeway, Arthur Dent is plucked off the planet by his friend Ford Prefect, a researcher for the revised edition of The Hitchhiker's Guide to the Galaxy who, for the last fifteen years, has been posing as an out-of-work actor.Together this dynamic pair begin a journey through space aided by quotes from The Hitchhiker's Guide (\"A towel is about the most massively useful thing an interstellar hitchhiker can have\") and a galaxy-full of fellow travelers: Zaphod Beeblebrox—the two-headed, three-armed ex-hippie and totally out-to-lunch president of the galaxy; Trillian, Zaphod's girlfriend (formally Tricia McMillan), whom Arthur tried to pick up at a cocktail party once upon a time zone; Marvin, a paranoid, brilliant, and chronically depressed robot; Veet Voojagig, a former graduate student who is obsessed with the disappearance of all the ballpoint pens he bought over the years.",
-        format:"Paperback",
-    },
-    {
-        id:"639774c4badfb8b3aa286b6e",
-        title:"The Hitchhiker's Guide to the Galaxy",
-        authors:"Douglas Adams",
-        rating:4.21,
-        num_pages:193,
-        image_url:"https://images.gr-assets.com/books/1388282444l/386162.jpg",
-        description:"Seconds before the Earth is demolished to make way for a galactic freeway, Arthur Dent is plucked off the planet by his friend Ford Prefect, a researcher for the revised edition of The Hitchhiker's Guide to the Galaxy who, for the last fifteen years, has been posing as an out-of-work actor.Together this dynamic pair begin a journey through space aided by quotes from The Hitchhiker's Guide (\"A towel is about the most massively useful thing an interstellar hitchhiker can have\") and a galaxy-full of fellow travelers: Zaphod Beeblebrox—the two-headed, three-armed ex-hippie and totally out-to-lunch president of the galaxy; Trillian, Zaphod's girlfriend (formally Tricia McMillan), whom Arthur tried to pick up at a cocktail party once upon a time zone; Marvin, a paranoid, brilliant, and chronically depressed robot; Veet Voojagig, a former graduate student who is obsessed with the disappearance of all the ballpoint pens he bought over the years.",
-        format:"Paperback",
-    },
-    {
-        id:"639774c4badfb8b3aa286b6e",
-        title:"The Hitchhiker's Guide to the Galaxy",
-        authors:"Douglas Adams",
-        rating:4.21,
-        num_pages:193,
-        image_url:"https://images.gr-assets.com/books/1388282444l/386162.jpg",
-        description:"Seconds before the Earth is demolished to make way for a galactic freeway, Arthur Dent is plucked off the planet by his friend Ford Prefect, a researcher for the revised edition of The Hitchhiker's Guide to the Galaxy who, for the last fifteen years, has been posing as an out-of-work actor.Together this dynamic pair begin a journey through space aided by quotes from The Hitchhiker's Guide (\"A towel is about the most massively useful thing an interstellar hitchhiker can have\") and a galaxy-full of fellow travelers: Zaphod Beeblebrox—the two-headed, three-armed ex-hippie and totally out-to-lunch president of the galaxy; Trillian, Zaphod's girlfriend (formally Tricia McMillan), whom Arthur tried to pick up at a cocktail party once upon a time zone; Marvin, a paranoid, brilliant, and chronically depressed robot; Veet Voojagig, a former graduate student who is obsessed with the disappearance of all the ballpoint pens he bought over the years.",
-        format:"Paperback",
-    },
-    {
-        id:"639774c4badfb8b3aa286b6e",
-        title:"The Hitchhiker's Guide to the Galaxy",
-        authors:"Douglas Adams",
-        rating:4.21,
-        num_pages:193,
-        image_url:"https://images.gr-assets.com/books/1388282444l/386162.jpg",
-        description:"Seconds before the Earth is demolished to make way for a galactic freeway, Arthur Dent is plucked off the planet by his friend Ford Prefect, a researcher for the revised edition of The Hitchhiker's Guide to the Galaxy who, for the last fifteen years, has been posing as an out-of-work actor.Together this dynamic pair begin a journey through space aided by quotes from The Hitchhiker's Guide (\"A towel is about the most massively useful thing an interstellar hitchhiker can have\") and a galaxy-full of fellow travelers: Zaphod Beeblebrox—the two-headed, three-armed ex-hippie and totally out-to-lunch president of the galaxy; Trillian, Zaphod's girlfriend (formally Tricia McMillan), whom Arthur tried to pick up at a cocktail party once upon a time zone; Marvin, a paranoid, brilliant, and chronically depressed robot; Veet Voojagig, a former graduate student who is obsessed with the disappearance of all the ballpoint pens he bought over the years.",
-        format:"Paperback",
-    },
-    {
-        id:"639774c4badfb8b3aa286b6e",
-        title:"The Hitchhiker's Guide to the Galaxy",
-        authors:"Douglas Adams",
-        rating:4.21,
-        num_pages:193,
-        image_url:"https://images.gr-assets.com/books/1388282444l/386162.jpg",
-        description:"Seconds before the Earth is demolished to make way for a galactic freeway, Arthur Dent is plucked off the planet by his friend Ford Prefect, a researcher for the revised edition of The Hitchhiker's Guide to the Galaxy who, for the last fifteen years, has been posing as an out-of-work actor.Together this dynamic pair begin a journey through space aided by quotes from The Hitchhiker's Guide (\"A towel is about the most massively useful thing an interstellar hitchhiker can have\") and a galaxy-full of fellow travelers: Zaphod Beeblebrox—the two-headed, three-armed ex-hippie and totally out-to-lunch president of the galaxy; Trillian, Zaphod's girlfriend (formally Tricia McMillan), whom Arthur tried to pick up at a cocktail party once upon a time zone; Marvin, a paranoid, brilliant, and chronically depressed robot; Veet Voojagig, a former graduate student who is obsessed with the disappearance of all the ballpoint pens he bought over the years.",
-        format:"Paperback",
-    },
-];
 const BookDetails = () => {
     let [inputValue,setInputValue]=useState(1);
     const {id}=useParams();
@@ -126,7 +64,7 @@ const BookDetails = () => {
                 </div>
             </div>
             <React.Suspense>
-                <LazyRelatedBook books={books}/>
+                <LazyRelatedBook />
             </React.Suspense>
         </div>
     </div>

@@ -1,10 +1,21 @@
 import React from 'react';
 import { BsJournalText } from "react-icons/bs";
 import {useNavigate} from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
+import {searchBooks} from '../../action/index'
 const NavBar = () => {
+    const dispatch=useDispatch();
     const navigate=useNavigate();
     const {quantity} = useSelector(state=>state.cart);
+    const searchHandler=(e)=>{
+        e.preventDefault();
+        dispatch(searchBooks(e.target.value));
+        navigate(`/search?query=${e.target.value}`);
+    }
+    const submitHandler=e=>{
+        e.preventDefault();
+        navigate('/search?query=');
+    }
   return (
         <div className='row mt-4'>
             <div className='col-sm-4 col-12 mt-3 mt-sm-auto'>
@@ -14,12 +25,12 @@ const NavBar = () => {
                 </div>
             </div>
             <div className='col-sm-4 col-12 mt-3 mt-sm-0'>
-                <form className="d-flex align-items-center justify-content-center w-100" role="search">
+                <form onSubmit={submitHandler} className="d-flex align-items-center justify-content-center w-100" role="search">
                     <div className='search d-flex align-items-center border border-muted rounded-4 w-100 w-sm-auto' style={{width:'100%'}}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="ms-2 bi bi-search" viewBox="0 0 16 16">
                             <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                         </svg>
-                        <input className="form-control me-2 border-0" type="search" placeholder="Search" />
+                        <input onClick={()=>navigate('/search?query=')} className="form-control me-2 border-0" type="search" placeholder="Search" onChange={searchHandler}/>
                     </div>
                 </form>
             </div>

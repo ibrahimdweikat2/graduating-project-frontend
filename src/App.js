@@ -8,6 +8,8 @@ const LazyCart=lazy(()=> import('./Components/Cart/Cart'));
 const LazyBookDetails=lazy(()=> import('./Components/Books/BookDetails/BookDetails'));
 const LazyBooks=lazy(()=> import('./Components/Books/Books'));
 const LazyRecommended=lazy(()=> import('./Components/Recommended/Recommended'));
+const LazySearch=lazy(()=> import('./Components/Search/Search'));
+const LazyFooter=lazy(()=> import('./Components/Footer/Footer'));
 function App() {
   return (
     <div>
@@ -22,7 +24,9 @@ function App() {
           <Route path='/Auth' element={<LazyAuth />}/>
           <Route path='/BookDetails/:id' element={<LazyBookDetails />}/>
           <Route path='/Cart' element={<LazyCart />}/>
+          <Route path='/search' element={<LazySearch />}/>
         </Routes>
+        <LazyFooter />
       </Suspense>
     </div>
   );
