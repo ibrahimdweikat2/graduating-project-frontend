@@ -18,7 +18,8 @@ export default function Recommended() {
   const page=useQuery().get('page') ||1;
   useEffect(()=>{
     dispatch(fetchBooks(page));
-  },[dispatch,page])
+    setDataFilter(books);
+  },[dispatch,page,books])
   useEffect(()=>{
     if(sort==='new'){
       setDataFilter((prev)=>[...prev].sort((a,b)=> a?.createdAt - b?.createdAt));

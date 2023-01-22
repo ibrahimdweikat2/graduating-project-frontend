@@ -7,7 +7,7 @@ import {TiSocialGooglePlus} from "react-icons/ti";
 export default function Footer() {
   return (
     <>
-    <footer style={{height:'40vh',backgroundColor:'#1B8BCB'}}>
+    <footer style={{height:'100%',backgroundColor:'#1B8BCB'}}>
       <div className='container-xxl'>
         <div className='row ms-5'>
           <div className='col-12 col-sm-6 col-xl-3'>
