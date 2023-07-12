@@ -25,3 +25,5 @@ export const getCart=(id)=>API_USER.get(`/api/carts/find/${id}`);
 export const addToCart=(bookId,quantity)=>API_USER.post('/api/carts/addCart',{bookId,quantity});
 export const deleteItem=(userId)=>API_USER.delete(`/api/carts/delete/${userId}`);
 
+export const updateQuantity=(userId)=>API_USER.put(`/api/carts/updatequantity/${userId}`);
+

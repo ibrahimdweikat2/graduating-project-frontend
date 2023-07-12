@@ -40,6 +40,14 @@ export const Login=formData=>async dispatch=>{
 
 
 //Cart
+export const updateQuantity=userId=>async dispatch=>{
+    try {
+        await api.updateQuantity(userId);
+    } catch (error) {
+        
+    }
+}
+
 export const deleteCart=id=>async dispatch=>{
     try {
         await api.deleteItem(id);
@@ -81,8 +89,10 @@ export const deleteItemGuset=(book,quantity)=>async dispatch=>{
     }
 }
 
-export const updateItemQuantity=(book,quantity)=>async dispatch=>{
+export const updateItemQuantity=(book,quantity,userId)=>async dispatch=>{
     try {
+        const res=await api.updateQuantity(userId);
+        console.log(res?.data);
         dispatch({type:"ADD_BOOK_Quantity",payload:{book,quantity}});
     } catch (error) {
         console.log(error);
