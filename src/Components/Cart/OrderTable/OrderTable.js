@@ -7,6 +7,7 @@ const OrderTable = () => {
     const location=useLocation();
     const dispatch=useDispatch();
     const {books}=useSelector(state=>state.cart);
+    console.log(books);
     useEffect(()=>{
         const user=JSON.parse(localStorage.getItem('user'));
         if(user){
