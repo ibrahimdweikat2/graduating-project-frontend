@@ -8,6 +8,7 @@ const OrderTable = () => {
     const dispatch=useDispatch();
     const {books}=useSelector(state=>state.cart);
     console.log(books);
+    const users=JSON.parse(localStorage.getItem('user'));
     useEffect(()=>{
         const user=JSON.parse(localStorage.getItem('user'));
         if(user){
@@ -67,7 +68,7 @@ const OrderTable = () => {
                                                 <p  className='position-absolute start-50 top-50 translate-middle'>-</p>
                                             </div>
                                                 <input onChange={changeHandler} type='text' style={{width:'60px'}}  className='text-center rounded-5 input' placeholder='1' value={cart?.quantity} min={1}/> 
-                                            <div onClick={()=>addQuantityHandler(cart?.bookId,cart?.quantity,cart?._id)} role='button' className='ms-2 position-relative text-muted border border-muted rounded-circle' style={{width:'35px',height:'35px'}}>
+                                            <div onClick={()=>addQuantityHandler(cart?.bookId,cart?.quantity,users&& users?._id)} role='button' className='ms-2 position-relative text-muted border border-muted rounded-circle' style={{width:'35px',height:'35px'}}>
                                                 <p  className='position-absolute start-50 top-50 translate-middle'>+</p>
                                             </div>
                                         </div>
