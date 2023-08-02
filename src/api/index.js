@@ -3,9 +3,10 @@ import axios from 'axios';
 const API_USER=axios.create({baseURL:'https://finalbackend-lrga.onrender.com'});
 const API=axios.create({baseURL:'https://finalbackend-lrga.onrender.com'});
 
-axios.interceptors.request.use(req=>{
+API_USER.interceptors.request.use(req=>{
     const token = JSON.parse( localStorage.getItem('user'))?.token;
     if(localStorage.getItem('user')){
+        console.log(token);
         req.headers.authorization=`Bearer ${token}`;
     }
     return req;
